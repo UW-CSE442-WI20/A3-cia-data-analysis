@@ -28,11 +28,34 @@
       .countryName{
         fill: #000000;   /* country label text colour */
       }
+      table, th, td {
+        border: 1px solid black;
+      }
+      th, td {
+        padding: 15px;
+      }
     </style>
   </head>
   <body>
-    <h1>My Webpage</h1>
-    <div id="map-holder"></div>
-    <script src="./index.js"></script>
+    <h1>CIA World Factbook Data</h1>
+    <div id="map-and-info">
+      <div id="map-holder"; style="float:left; width:70%;"></div>
+      <script src="./index.js"></script>
+      <div id="info-box", style="float:left">
+        <table style="width:100%">
+          <tr>
+            <th>Item</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Country</td>
+            <td>United States</td>
+          </tr>
+          <tr>
+            <td>Number of starving kids</td>
+            <td>500</td>
+          </tr>
+        </table></div>
+    </div>
   </body>
 </html>

@@ -29,8 +29,8 @@
       $(window).resize(function() {
         // Resize SVG
         svg
-          .attr("width", $("#map-holder").width())
-          .attr("height", $("#map-holder").height())
+          .attr("max-width", $("#map-holder").width())
+          .attr("max-height", $("#map-holder").height())
         ;
       });
 
@@ -39,8 +39,9 @@
         .select("#map-holder")
         .append("svg")
         // set to the same size as the "map-holder" div
-        .attr("width", $("#map-holder").width())
-        .attr("height", $("#map-holder").height())
+        // .attr("width", $("#map-holder").width())
+        // .attr("height", $("#map-holder").height())
+        .attr("viewBox", "0, 0, 1200, 600")
       ;
 
 
@@ -56,7 +57,9 @@
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 3000)
-            .attr("height", 1500);
+            .attr("height", 1500)
+            // .attr("max-width", $("#map-holder").width())
+            // .attr("max-height", $("#map-holder").height());
 
           // draw a path for each feature/country
           countries = countriesGroup
@@ -71,7 +74,8 @@
             .attr("class", "country")
             // add a mouseover action to show name label for feature/country
             .on("mouseover", function(d, i) {
-                d3.select("#countryLabel" + d.properties.iso_a3).style("display", "block");
+                d3.selectAll(".country").classed("country-on", false);
+                d3.select(this).classed("country-on", true);
             })
             .on("mouseout", function(d, i) {
                 d3.select("#countryLabel" + d.properties.iso_a3).style("display", "none");
