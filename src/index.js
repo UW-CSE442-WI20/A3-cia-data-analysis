@@ -58,8 +58,6 @@
             .attr("y", 0)
             .attr("width", 3000)
             .attr("height", 1500)
-            // .attr("max-width", $("#map-holder").width())
-            // .attr("max-height", $("#map-holder").height());
 
           // draw a path for each feature/country
           countries = countriesGroup
@@ -76,9 +74,15 @@
             .on("mouseover", function(d, i) {
                 d3.selectAll(".country").classed("country-on", false);
                 d3.select(this).classed("country-on", true);
+                document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
             })
             .on("mouseout", function(d, i) {
-                d3.select("#countryLabel" + d.properties.iso_a3).style("display", "none");
+                document.getElementById("country-label-box").innerText = "Country name:";
+            })
+            .on("click", function(d, i) {
+              d3.selectAll(".country").classed("country-on", false);
+              d3.select(this).classed("country-on", true);
+              document.getElementById("table-country-name").innerText = d.properties.name;
             })
 	    countryLabels = countriesGroup
             .selectAll("g")

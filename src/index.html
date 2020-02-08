@@ -38,24 +38,27 @@
   </head>
   <body>
     <h1>CIA World Factbook Data</h1>
-    <div id="map-and-info">
-      <div id="map-holder"; style="float:left; width:70%;"></div>
-      <script src="./index.js"></script>
-      <div id="info-box", style="float:left">
-        <table style="width:100%">
-          <tr>
-            <th>Item</th>
-            <th>Value</th>
-          </tr>
-          <tr>
-            <td>Country</td>
-            <td>United States</td>
-          </tr>
-          <tr>
-            <td>Number of starving kids</td>
-            <td>500</td>
-          </tr>
-        </table></div>
+    <div id="full-page">
+      <div id="country-label-box"; style="float:left; padding-top:-30;"></div>
+      <div id="map-and-info">
+        <div id="map-holder"; style="float:left; clear: both; width:70%;"></div>
+        <script src="./index.js"></script>
+        <div id="info-box", style="float:left">
+          <table style="width:100%">
+            <tr>
+              <th>Item</th>
+              <th>Value</th>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td id="table-country-name"></td>
+            </tr>
+            <tr>
+              <td>Population</td>
+              <td>10000000</td>
+            </tr>
+          </table></div>
+      </div>
     </div>
   </body>
 </html>
