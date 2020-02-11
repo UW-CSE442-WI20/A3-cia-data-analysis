@@ -182,12 +182,12 @@
             .on("mouseover", function(d, i) {
                 d3.selectAll(".country").classed("country-hover", false);
                 d3.select(this).classed("country-hover", true);
-                document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
+                // document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
                 document.getElementById("table-country-name2").innerText = d.properties.name;  
                 pop2 = readPopulation(d.properties.name, "table-country-pop2");
             })
             .on("mouseout", function(d, i) {
-                document.getElementById("country-label-box").innerText = "Country name:";
+                // document.getElementById("country-label-box").innerText = "Country name:";
             })
             .on("click", function(d, i) {
               d3.selectAll(".country").classed("country-click", false);
