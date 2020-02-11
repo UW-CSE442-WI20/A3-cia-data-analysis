@@ -71,7 +71,7 @@
           for (var i = 0; i < data.length; i++) {
             if (data[i]["Name"] == country) {
               console.log(data[i].Name + "   " + data[i].Value);
-              document.getElementById(tablename).innerText = data[i].Value;
+              document.getElementById(tablename).innerText = parseInt(data[i].Value).toLocaleString();
             }
           }
         })
@@ -132,6 +132,7 @@
             })
             .on("mouseout", function(d, i) {
                 document.getElementById("country-label-box").innerText = "Country name:";
+                document.getElementById("table-country-pop2").innerText = "";
             })
             .on("click", function(d, i) {
               d3.selectAll(".country").classed("country-on", false);
