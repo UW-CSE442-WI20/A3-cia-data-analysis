@@ -118,6 +118,7 @@
         return list;
       }
 
+      // use poplist TODO
       function readPopulation(country, tablename) {
         const dataLoc = require('./population.csv');
         // console.log(dataLoc);
