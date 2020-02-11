@@ -1,6 +1,3 @@
-      
-// variables for catching min and max zoom factors
-
       // DEFINE FUNCTIONS/OBJECTS
       // Define map projection
       var projection = d3
