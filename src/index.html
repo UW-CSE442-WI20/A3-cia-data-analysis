@@ -33,9 +33,19 @@
         stroke: #FFFFFF; /* country border colour */
         stroke-width: 1.5; /* country border width */
       }
-      .country-on{
+
+      .country-hover{
         fill: #4B5358;   /* highlight colour for selected country */
       }
+      
+      .country-click{
+        fill: #900C3F;
+      }
+
+      .country-filtered{
+        fill: #FFFFFF;
+      }
+
       .countryLabel{
         display: none;   /* hide all country labels by default */
       }
@@ -59,7 +69,7 @@
           <div id="map-holder"; style="float:left; clear: both; width:70%; height:auto"></div>
           <div id="slider-box" style="float:left; width:30%">
             <div style="height: auto;">
-              <h3>Value:</h3>
+              <h3>Population:</h3>
             </div>
             <div id="range-label1" style="">0 - 10</div>
             <div id="slider-container1" style="padding-bottom:20px"></div>
@@ -93,22 +103,22 @@
 
             <tr>
               <th>Country</th>
-              <th>Thing1</th>
+              <th>Population</th>
               <th>thing2</th>
               <th>thing3</th>
               <th>thing4</th>
             </tr>
             <tr>
               <td id="table-country-name1"></td>
-              <td id="table-country-name"></td>
+              <td id="table-country-pop1"></td>
               <td id="table-country-people"></td>
               <td id="table-country-test"></td>
               <td id="thing4"></td>
             </tr>
             <tr>
               <td id="table-country-name2"></td>
-              <td id="table-country-name"></td>
-              <td id="table-country-pop"></td>
+              <td id="table-country-pop2"></td>
+              <td id="table-country-people"></td>
               <td id="table-country-test"></td>
               <td id="thing4"></td>
             </tr>
