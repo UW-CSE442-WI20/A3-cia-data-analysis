@@ -176,24 +176,33 @@
             .attr("class", "country")
             // add a mouseover action to show name label for feature/country
             .on("mouseover", function(d, i) {
-              if (d3.select(this).classed("country-filtered")) {
-                // do nothing?
+              d3.selectAll(".country").classed("country-hover", false);
+
+              if (d3.select(this).classed("country-filtered") || d3.select(this).classed("country-click_hover")) {
+              } else if (d3.select(this).classed("country-click")) {
+                console.log("hello")
+                d3.select(this).classed("country-click_hover", true)
+                document.getElementById("table-country-name2").innerText = d.properties.name;
+                pop2 = readPopulation(d.properties.name, "table-country-pop2");
               } else {
-                d3.selectAll(".country").classed("country-hover", false);
                 d3.select(this).classed("country-hover", true);
-                document.getElementById("table-country-name2").innerText = d.properties.name;  
+                document.getElementById("table-country-name2").innerText = d.properties.name;
                 pop2 = readPopulation(d.properties.name, "table-country-pop2");
               }
             })
             .on("mouseout", function(d, i) {
                 document.getElementById("table-country-pop2").innerText = "";
+                if (d3.select(this).classed("country-click_hover")) {
+                    d3.select(this).classed("country-click_hover", false)
+                    d3.select(this).classed("country-click", true)
+                }
             })
             .on("click", function(d, i) {
               if (d3.select(this).classed("country-filtered")) {
                 // do nothing?
               } else {
                 d3.selectAll(".country").classed("country-click", false);
-                d3.select(this).classed("country-click", true);
+                d3.select(this).classed("country-click_hover", true);
                 document.getElementById("table-country-name1").innerText = d.properties.name;
                 pop = readPopulation(d.properties.name, "table-country-pop1");
               }
