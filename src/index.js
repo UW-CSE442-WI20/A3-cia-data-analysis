@@ -1,6 +1,3 @@
-      
-// variables for catching min and max zoom factors
-
       // DEFINE FUNCTIONS/OBJECTS
       // Define map projection
       var projection = d3
@@ -14,45 +11,88 @@
         .geoPath()
         .projection(projection)
       ;
-     
+    var sliders_begin = [0, 0, 0, 0];
+    var sliders_end = [0, 0, 0, 0];
+    var pop_list = generatePopulation();
 
-    var slider1 = createD3RangeSlider(0, 100, "#slider-container1");
+
+    var slider1 = createD3RangeSlider(0, 2000000000, "#slider-container1");
 
     slider1.onChange(function(newRange){
         d3.select("#range-label1").text(newRange.begin + " - " + newRange.end);
+        sliders_begin[0] = newRange.begin;
+        sliders_end[0] = newRange.end;
+        updateFilter();
     });
 
-    slider1.range(0,10);
+    slider1.range(0, 0);
 
 
-     var slider2 = createD3RangeSlider(0, 100, "#slider-container2");
+     var slider2 = createD3RangeSlider(0, 2000000000, "#slider-container2");
 
     slider2.onChange(function(newRange){
         d3.select("#range-label2").text(newRange.begin + " - " + newRange.end);
+        sliders_begin[1] = newRange.begin;
+        sliders_end[1] = newRange.end;
+        updateFilter();
     });
 
-    slider2.range(0,10);
+    slider2.range(0,0);
 
 
- var slider3 = createD3RangeSlider(0, 100, "#slider-container3");
+ var slider3 = createD3RangeSlider(0, 2000000000, "#slider-container3");
 
     slider3.onChange(function(newRange){
         d3.select("#range-label3").text(newRange.begin + " - " + newRange.end);
+        sliders_begin[2] = newRange.begin;
+        sliders_end[2] = newRange.end;
+        updateFilter();
     });
 
-    slider3.range(0,10);
+    slider3.range(0,0);
 
 
- var slider4 = createD3RangeSlider(0, 100, "#slider-container4");
+ var slider4 = createD3RangeSlider(0, 1367485388, "#slider-container4");
 
     slider4.onChange(function(newRange){
         d3.select("#range-label4").text(newRange.begin + " - " + newRange.end);
+        sliders_begin[3] = newRange.begin;
+        sliders_end[3] = newRange.end;
+        updateFilter();
     });
 
-    slider4.range(0,10);
+    slider4.range(0,1367485388);
 
 
-
+      function updateFilter() {
+        filterList = d3.selectAll(".country")._groups[0];
+        const dataLoc = require('./code_to_fullname.csv');
+        // console.log(dataLoc);
+        d3.csv(dataLoc, function(data) {
+        for (k = 0; k < sliders_begin.length; k++) {
+          for (i = 0; i < filterList.length; i++) {
+            for (j = 0; j < data.length; j++) {
+              if (filterList[i].id.substring(7) == data[j].A2) {
+                attribute = "";
+                // Going to need to make sure that we have an if branch for each
+                // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
+                // with just the last slider (Right now only 4th slider affects the map)
+                for (l = 0; l < pop_list.length; l++) {
+                  if (data[j].Name == pop_list[l]["Name"]) {
+                    attribute = pop_list[l].Value;
+                  }
+                }
+                if (attribute < sliders_begin[k] || attribute > sliders_end[k]) { 
+                  d3.select(filterList[i]).classed("country-filtered", true);
+                } else {
+                  d3.select(filterList[i]).classed("country-filtered", false);
+                }
+              }
+            }
+          }
+        }
+        })
+      }
 
       function getTextBox(selection) {
         selection
@@ -61,6 +101,19 @@
               .getBBox();
             })
         ;
+      }
+
+       function generatePopulation() {
+        const dataLoc = require('./population.csv');
+        // console.log(dataLoc);
+        var list = [];
+        d3.csv(dataLoc, function(data) {
+          // console.log(data[0].Value);
+          for (var i = 0; i < data.length; i++) {
+            list.push(data[i]);
+          }
+        })
+        return list;
       }
 
       function readPopulation(country, tablename) {
@@ -124,21 +177,21 @@
             .attr("class", "country")
             // add a mouseover action to show name label for feature/country
             .on("mouseover", function(d, i) {
-                d3.selectAll(".country").classed("country-on", false);
-                d3.select(this).classed("country-on", true);
-                document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
+                d3.selectAll(".country").classed("country-hover", false);
+                d3.select(this).classed("country-hover", true);
+                // document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
                 document.getElementById("table-country-name2").innerText = d.properties.name;  
-                readPopulation(d.properties.name, "table-country-pop2");
+                pop2 = readPopulation(d.properties.name, "table-country-pop2");
             })
             .on("mouseout", function(d, i) {
                 document.getElementById("country-label-box").innerText = "Country name:";
                 document.getElementById("table-country-pop2").innerText = "";
             })
             .on("click", function(d, i) {
-              d3.selectAll(".country").classed("country-on", false);
-              d3.select(this).classed("country-on", true);
+              d3.selectAll(".country").classed("country-click", false);
+              d3.select(this).classed("country-click", true);
               document.getElementById("table-country-name1").innerText = d.properties.name;
-              readPopulation(d.properties.name, "table-country-pop");
+              pop = readPopulation(d.properties.name, "table-country-pop1");
             })
 	    countryLabels = countriesGroup
             .selectAll("g")
