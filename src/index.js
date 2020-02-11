@@ -176,21 +176,27 @@
             .attr("class", "country")
             // add a mouseover action to show name label for feature/country
             .on("mouseover", function(d, i) {
+              if (d3.select(this).classed("country-filtered")) {
+                // do nothing?
+              } else {
                 d3.selectAll(".country").classed("country-hover", false);
                 d3.select(this).classed("country-hover", true);
-                // document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
                 document.getElementById("table-country-name2").innerText = d.properties.name;  
                 pop2 = readPopulation(d.properties.name, "table-country-pop2");
+              }
             })
             .on("mouseout", function(d, i) {
-                document.getElementById("country-label-box").innerText = "Country name:";
                 document.getElementById("table-country-pop2").innerText = "";
             })
             .on("click", function(d, i) {
-              d3.selectAll(".country").classed("country-click", false);
-              d3.select(this).classed("country-click", true);
-              document.getElementById("table-country-name1").innerText = d.properties.name;
-              pop = readPopulation(d.properties.name, "table-country-pop1");
+              if (d3.select(this).classed("country-filtered")) {
+                // do nothing?
+              } else {
+                d3.selectAll(".country").classed("country-click", false);
+                d3.select(this).classed("country-click", true);
+                document.getElementById("table-country-name1").innerText = d.properties.name;
+                pop = readPopulation(d.properties.name, "table-country-pop1");
+              }
             })
 	    countryLabels = countriesGroup
             .selectAll("g")
