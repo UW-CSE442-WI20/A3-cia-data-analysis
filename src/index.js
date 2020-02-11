@@ -14,8 +14,46 @@
         .geoPath()
         .projection(projection)
       ;
-
      
+
+    var slider1 = createD3RangeSlider(0, 100, "#slider-container1");
+
+    slider1.onChange(function(newRange){
+        d3.select("#range-label1").text(newRange.begin + " - " + newRange.end);
+    });
+
+    slider1.range(0,10);
+
+
+     var slider2 = createD3RangeSlider(0, 100, "#slider-container2");
+
+    slider2.onChange(function(newRange){
+        d3.select("#range-label2").text(newRange.begin + " - " + newRange.end);
+    });
+
+    slider2.range(0,10);
+
+
+ var slider3 = createD3RangeSlider(0, 100, "#slider-container3");
+
+    slider3.onChange(function(newRange){
+        d3.select("#range-label3").text(newRange.begin + " - " + newRange.end);
+    });
+
+    slider3.range(0,10);
+
+
+ var slider4 = createD3RangeSlider(0, 100, "#slider-container4");
+
+    slider4.onChange(function(newRange){
+        d3.select("#range-label4").text(newRange.begin + " - " + newRange.end);
+    });
+
+    slider4.range(0,10);
+
+
+
+
       function getTextBox(selection) {
         selection
           .each(function(d) {
@@ -89,6 +127,7 @@
                 d3.selectAll(".country").classed("country-on", false);
                 d3.select(this).classed("country-on", true);
                 document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
+                document.getElementById("table-country-name2").innerText = d.properties.name;  
             })
             .on("mouseout", function(d, i) {
                 document.getElementById("country-label-box").innerText = "Country name:";
@@ -96,8 +135,9 @@
             .on("click", function(d, i) {
               d3.selectAll(".country").classed("country-on", false);
               d3.select(this).classed("country-on", true);
-              document.getElementById("table-country-name").innerText = d.properties.name;
-              readPopulation(d.properties.name);
+              document.getElementById("table-country-name1").innerText = d.properties.name;
+              pop = readPopulation(d.properties.name);
+              console.log(pop);
             })
 	    countryLabels = countriesGroup
             .selectAll("g")
