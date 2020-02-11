@@ -19,7 +19,7 @@
     var slider1 = createD3RangeSlider(0, 2000000000, "#slider-container1");
 
     slider1.onChange(function(newRange){
-        d3.select("#range-label1").text(newRange.begin + " - " + newRange.end);
+        d3.select("#range-label1").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[0] = newRange.begin;
         sliders_end[0] = newRange.end;
         updateFilter();
@@ -31,7 +31,7 @@
      var slider2 = createD3RangeSlider(0, 2000000000, "#slider-container2");
 
     slider2.onChange(function(newRange){
-        d3.select("#range-label2").text(newRange.begin + " - " + newRange.end);
+        d3.select("#range-label2").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[1] = newRange.begin;
         sliders_end[1] = newRange.end;
         updateFilter();
@@ -43,7 +43,7 @@
  var slider3 = createD3RangeSlider(0, 2000000000, "#slider-container3");
 
     slider3.onChange(function(newRange){
-        d3.select("#range-label3").text(newRange.begin + " - " + newRange.end);
+        d3.select("#range-label3").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[2] = newRange.begin;
         sliders_end[2] = newRange.end;
         updateFilter();
@@ -55,7 +55,7 @@
  var slider4 = createD3RangeSlider(0, 1367485388, "#slider-container4");
 
     slider4.onChange(function(newRange){
-        d3.select("#range-label4").text(newRange.begin + " - " + newRange.end);
+        d3.select("#range-label4").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[3] = newRange.begin;
         sliders_end[3] = newRange.end;
         updateFilter();
@@ -123,7 +123,6 @@
           // console.log(data[0].Value);
           for (var i = 0; i < data.length; i++) {
             if (data[i]["Name"] == country) {
-              console.log(data[i].Name + "   " + data[i].Value);
               document.getElementById(tablename).innerText = parseInt(data[i].Value).toLocaleString();
             }
           }
