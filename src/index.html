@@ -6,7 +6,21 @@
     <title>My Title</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <style>
+
+
+   <!-- Range slider code -->
+   <script src="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.js"></script>
+
+   <!-- Range slider style -->
+   <link href="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.css" rel="stylesheet">
+
+   <style type="text/css">
+       #slider-container {
+           position: relative;
+           height:30px;
+           background-color: #eeeef5;
+       }
+
       #map-holder {
         width: 100vw;
         height: 100vh;
@@ -38,29 +52,67 @@
   </head>
   <body>
     <h1>CIA World Factbook Data</h1>
-    <div id="full-page">
+    <div id="fullpage">
+
       <div id="country-label-box"; style="float:left; padding-top:-30;"></div>
       <div id="map-and-info">
-          <div id="map-holder"; style="float:left; clear: both; width:70%; height: auto;"></div>
-          <script src="./index.js"></script>         
-          <div id="info-box", style="float:none; padding: 0px">
-          <table style="width:70%; height: auto;">
+          <div id="map-holder"; style="float:left; clear: both; width:70%; height:auto"></div>
+          <div id="slider-box" style="float:left; width:30%">
+            <div style="height: auto;">
+              <h3>Value:</h3>
+            </div>
+            <div id="range-label1" style="">0 - 10</div>
+            <div id="slider-container1" style="padding-bottom:20px"></div>
+            
+            <div style="height: auto;">
+              <h3>People:</h3>
+            </div>
+            <div id="range-label2" style="">0 - 10</div>
+            <div id="slider-container2" style="padding-bottom:20px"></div>
+
+            <div style="height: auto;">
+              <h3>Population:</h3>
+            </div>
+            <div id="range-label3" style="">0 - 10</div>
+            <div id="slider-container3" style="padding-bottom:20px"></div>
+
+            <div style="height: auto;">
+              <h3>Population:</h3>
+            </div>
+            <div id="range-label4" style="">0 - 10</div>
+            <div id="slider-container4" style="padding-bottom:20px"></div>
+          </div>
+          <script src="./index.js"></script>
+          <div id="info-box", style="float:none;">
+          <table class="fixed"style="width:100%; height: auto;">
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+
             <tr>
-              <th>Item</th>
-              <th>Value</th>
+              <th>Country</th>
+              <th>Thing1</th>
+              <th>thing2</th>
+              <th>thing3</th>
+              <th>thing4</th>
             </tr>
             <tr>
-              <td>Country</td>
+              <td id="table-country-name1"></td>
               <td id="table-country-name"></td>
+              <td id="table-country-people"></td>
+              <td id="table-country-test"></td>
+              <td id="thing4"></td>
             </tr>
             <tr>
-              <td>Population</td>
-              <td>10000000</td>
+              <td id="table-country-name2"></td>
+              <td id="table-country-name"></td>
+              <td id="table-country-people"></td>
+              <td id="table-country-test"></td>
+              <td id="thing4"></td>
             </tr>
-	    <tr>
-              <td>Population</td>
-              <td>10000000</td>
-            </tr>
+
           </table></div>    
       </div>
     </div>
