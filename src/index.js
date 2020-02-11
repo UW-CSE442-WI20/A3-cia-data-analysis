@@ -192,6 +192,8 @@
             })
             .on("mouseout", function(d, i) {
                 document.getElementById("table-country-pop2").innerText = "";
+                document.getElementById("table-country-name2").innerText = "";
+                d3.select(this).classed("country-hover", false);
                 if (d3.select(this).classed("country-click_hover")) {
                     d3.select(this).classed("country-click_hover", false)
                     d3.select(this).classed("country-click", true)
