@@ -13,14 +13,13 @@
 
    <!-- Range slider style -->
    <link href="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.css" rel="stylesheet">
-
    <style type="text/css">
        #slider-container {
            position: relative;
            height:30px;
            background-color: #eeeef5;
        }
-
+ 
       #map-holder {
         width: 100vw;
         height: 100vh;
@@ -60,7 +59,7 @@
       }
     </style>
   </head>
-  <body>
+  <body style="font-family: sans-serif">
     <h1>CIA World Factbook Data</h1>
     <div id="fullpage">
 
@@ -72,7 +71,7 @@
               <h3>Population:</h3>
             </div>
             <div id="range-label1" style="">0 - 10</div>
-            <div id="slider-container1" style="padding-bottom:20px"></div>
+            <div id="slider-container1" style="padding-bottom:20px;"></div>
             
             <div style="height: auto;">
               <h3>People:</h3>
@@ -94,14 +93,14 @@
           </div>
           <script src="./index.js"></script>
           <div id="info-box", style="float:none;">
-          <table class="fixed"style="width:100%; height: auto;">
+          <table class="fixed"style="width:100%; height: auto; border-collapse: collapse; text-align: center;">
             <col width="20%"/>
             <col width="20%"/>
             <col width="20%"/>
             <col width="20%"/>
             <col width="20%"/>
 
-            <tr>
+            <tr style="background-color: #900C3F; color: white;">
               <th>Country</th>
               <th>Population</th>
               <th>thing2</th>

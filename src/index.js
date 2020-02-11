@@ -28,7 +28,7 @@
         updateFilter();
     });
 
-    slider1.range(0, 2000000000);
+    slider1.range(0, 0);
 
 
      var slider2 = createD3RangeSlider(0, 2000000000, "#slider-container2");
@@ -40,7 +40,7 @@
         updateFilter();
     });
 
-    slider2.range(0,2000000000);
+    slider2.range(0,0);
 
 
  var slider3 = createD3RangeSlider(0, 2000000000, "#slider-container3");
@@ -52,10 +52,10 @@
         updateFilter();
     });
 
-    slider3.range(0,2000000000);
+    slider3.range(0,0);
 
 
- var slider4 = createD3RangeSlider(0, 2000000000, "#slider-container4");
+ var slider4 = createD3RangeSlider(0, 1367485388, "#slider-container4");
 
     slider4.onChange(function(newRange){
         d3.select("#range-label4").text(newRange.begin + " - " + newRange.end);
@@ -64,7 +64,7 @@
         updateFilter();
     });
 
-    slider4.range(0,2000000000);
+    slider4.range(0,1367485388);
 
 
       function updateFilter() {
@@ -77,6 +77,9 @@
             for (j = 0; j < data.length; j++) {
               if (filterList[i].id.substring(7) == data[j].A2) {
                 attribute = "";
+                // Going to need to make sure that we have an if branch for each
+                // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
+                // with just the last slider (Right now only 4th slider affects the map)
                 for (l = 0; l < pop_list.length; l++) {
                   if (data[j].Name == pop_list[l]["Name"]) {
                     attribute = pop_list[l].Value;
