@@ -62,6 +62,25 @@
             })
         ;
       }
+
+      function readPopulation(country) {
+        const dataLoc = require('./population.csv');
+        console.log(dataLoc);
+        d3.csv(dataLoc, function(data) {
+          console.log(data[0]);
+          // for (var i = 0; i < data.length; i++) {
+          //   if (data[i][Name].equals(country)) {
+          //     return data[i].Value;
+          //   }
+          // }
+        })
+        // d3.csv("", function(data) {
+        //   // for (var i = 0; i < lines.length; i++) {
+        //   //     console.log(lines[i]);
+        //   // }
+        //   console.log(data[0]);
+        // });
+      }
       
       // on window resize
       $(window).resize(function() {
@@ -122,6 +141,8 @@
               d3.selectAll(".country").classed("country-on", false);
               d3.select(this).classed("country-on", true);
               document.getElementById("table-country-name1").innerText = d.properties.name;
+              pop = readPopulation(d.properties.name);
+              console.log(pop);
             })
 	    countryLabels = countriesGroup
             .selectAll("g")
