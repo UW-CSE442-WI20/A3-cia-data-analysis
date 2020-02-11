@@ -12,10 +12,6 @@
         .projection(projection)
       ;
 
-
-    function numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
     var sliders_begin = [0, 0, 0, 0];
     var sliders_end = [0, 0, 0, 0];
     var pop_list = generatePopulation();
@@ -24,7 +20,7 @@
     var slider1 = createD3RangeSlider(0, 2000000000, "#slider-container1");
 
     slider1.onChange(function(newRange){
-        d3.select("#range-label1").text(numberWithCommas(newRange.begin) + " - " + numberWithCommas(newRange.end));
+        d3.select("#range-label1").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[0] = newRange.begin;
         sliders_end[0] = newRange.end;
         updateFilter();
@@ -36,7 +32,7 @@
      var slider2 = createD3RangeSlider(0, 2000000000, "#slider-container2");
 
     slider2.onChange(function(newRange){
-        d3.select("#range-label2").text(numberWithCommas(newRange.begin) + " - " + numberWithCommas(newRange.end));
+        d3.select("#range-label2").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[1] = newRange.begin;
         sliders_end[1] = newRange.end;
         updateFilter();
@@ -48,7 +44,7 @@
  var slider3 = createD3RangeSlider(0, 2000000000, "#slider-container3");
 
     slider3.onChange(function(newRange){
-        d3.select("#range-label3").text(numberWithCommas(newRange.begin) + " - " + numberWithCommas(newRange.end));
+        d3.select("#range-label3").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[2] = newRange.begin;
         sliders_end[2] = newRange.end;
         updateFilter();
@@ -60,7 +56,7 @@
  var slider4 = createD3RangeSlider(0, 1367485388, "#slider-container4");
 
     slider4.onChange(function(newRange){
-        d3.select("#range-label4").text(numberWithCommas(newRange.begin) + " - " + numberWithCommas(newRange.end));
+        d3.select("#range-label4").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
         sliders_begin[3] = newRange.begin;
         sliders_end[3] = newRange.end;
         updateFilter();
@@ -129,8 +125,7 @@
           // console.log(data[0].Value);
           for (var i = 0; i < data.length; i++) {
             if (data[i]["Name"] == country) {
-              console.log(data[i].Name + "   " + data[i].Value);
-              document.getElementById(tablename).innerText = numberWithCommas(data[i].Value);
+              document.getElementById(tablename).innerText = parseInt(data[i].Value).toLocaleString();
             }
           }
         })
@@ -183,20 +178,38 @@
             .attr("class", "country")
             // add a mouseover action to show name label for feature/country
             .on("mouseover", function(d, i) {
-                d3.selectAll(".country").classed("country-hover", false);
-                d3.select(this).classed("country-hover", true);
-                // document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
-                document.getElementById("table-country-name2").innerText = d.properties.name;  
+              d3.selectAll(".country").classed("country-hover", false);
+
+              if (d3.select(this).classed("country-filtered") || d3.select(this).classed("country-click_hover")) {
+              } else if (d3.select(this).classed("country-click")) {
+                console.log("hello")
+                d3.select(this).classed("country-click_hover", true)
+                document.getElementById("table-country-name2").innerText = d.properties.name;
                 pop2 = readPopulation(d.properties.name, "table-country-pop2");
+              } else {
+                d3.select(this).classed("country-hover", true);
+                document.getElementById("table-country-name2").innerText = d.properties.name;
+                pop2 = readPopulation(d.properties.name, "table-country-pop2");
+              }
             })
             .on("mouseout", function(d, i) {
-                // document.getElementById("country-label-box").innerText = "Country name:";
+                document.getElementById("table-country-pop2").innerText = "";
+                document.getElementById("table-country-name2").innerText = "";
+                d3.select(this).classed("country-hover", false);
+                if (d3.select(this).classed("country-click_hover")) {
+                    d3.select(this).classed("country-click_hover", false)
+                    d3.select(this).classed("country-click", true)
+                }
             })
             .on("click", function(d, i) {
-              d3.selectAll(".country").classed("country-click", false);
-              d3.select(this).classed("country-click", true);
-              document.getElementById("table-country-name1").innerText = d.properties.name;
-              pop = readPopulation(d.properties.name, "table-country-pop1");
+              if (d3.select(this).classed("country-filtered")) {
+                // do nothing?
+              } else {
+                d3.selectAll(".country").classed("country-click", false);
+                d3.select(this).classed("country-click_hover", true);
+                document.getElementById("table-country-name1").innerText = d.properties.name;
+                pop = readPopulation(d.properties.name, "table-country-pop1");
+              }
             })
 	    countryLabels = countriesGroup
             .selectAll("g")
