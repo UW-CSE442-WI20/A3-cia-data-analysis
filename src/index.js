@@ -63,7 +63,7 @@
         ;
       }
 
-      function readPopulation(country) {
+      function readPopulation(country, tablename) {
         const dataLoc = require('./population.csv');
         // console.log(dataLoc);
         d3.csv(dataLoc, function(data) {
@@ -71,7 +71,7 @@
           for (var i = 0; i < data.length; i++) {
             if (data[i]["Name"] == country) {
               console.log(data[i].Name + "   " + data[i].Value);
-              document.getElementById("table-country-pop").innerText = data[i].Value;
+              document.getElementById(tablename).innerText = data[i].Value;
             }
           }
         })
@@ -128,6 +128,7 @@
                 d3.select(this).classed("country-on", true);
                 document.getElementById("country-label-box").innerText = "Country name: " + d.properties.name;
                 document.getElementById("table-country-name2").innerText = d.properties.name;  
+                readPopulation(d.properties.name, "table-country-pop2");
             })
             .on("mouseout", function(d, i) {
                 document.getElementById("country-label-box").innerText = "Country name:";
@@ -136,8 +137,7 @@
               d3.selectAll(".country").classed("country-on", false);
               d3.select(this).classed("country-on", true);
               document.getElementById("table-country-name1").innerText = d.properties.name;
-              pop = readPopulation(d.properties.name);
-              console.log(pop);
+              readPopulation(d.properties.name, "table-country-pop");
             })
 	    countryLabels = countriesGroup
             .selectAll("g")
