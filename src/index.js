@@ -11,6 +11,7 @@
         .geoPath()
         .projection(projection)
       ;
+
     var sliders_begin = [0, 0, 0, 0];
     var sliders_end = [0, 0, 0, 0];
     var attributes = ["population"]
@@ -110,6 +111,7 @@
             })
         ;
       }
+
 
       function generateAttribute(dataLoc) {
         // console.log(dataLoc);
