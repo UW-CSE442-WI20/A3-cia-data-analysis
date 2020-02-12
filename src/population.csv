@@ -18,7 +18,7 @@ Pos,Name,Value
 17,Iran,81824270
 18,Germany,80854408
 19,Turkey,79414269
-20,"Congo, Democratic Republic of the",79375136
+20,Dem. Rep. Congo,79375136
 21,Thailand,67976405
 22,France,66553766
 23,United Kingdom,64088222
@@ -53,7 +53,7 @@ Pos,Name,Value
 52,Madagascar,23812681
 53,Cameroon,23739218
 54,Taiwan,23415126
-55,Cote d'Ivoire,23295302
+55,Côte d'Ivoire,23295302
 56,Australia,22751014
 57,Sri Lanka,22053488
 58,Romania,21666350
@@ -73,7 +73,7 @@ Pos,Name,Value
 72,Zimbabwe,14229541
 73,Senegal,13975834
 74,Rwanda,12661733
-75,South Sudan,12042910
+75,S. Sudan,12042910
 76,Guinea,11780162
 77,Chad,11631456
 78,Belgium,11323973
@@ -83,9 +83,9 @@ Pos,Name,Value
 82,Bolivia,10800882
 83,Greece,10775643
 84,Burundi,10742276
-85,Czech Republic,10644842
+85,Czech Rep.,10644842
 86,Somalia,10616380
-87,Dominican Republic,10478756
+87,Dominican Rep.,10478756
 88,Benin,10448647
 89,Haiti,10110019
 90,Hungary,9897541
@@ -102,7 +102,7 @@ Pos,Name,Value
 101,Bulgaria,7186893
 102,Serbia,7176794
 103,Hong Kong,7141106
-104,Laos,6911544
+104,Lao PDR,6911544
 105,Paraguay,6783272
 106,Papua New Guinea,6672429
 107,Eritrea,6527689
@@ -117,17 +117,17 @@ Pos,Name,Value
 116,Denmark,5581503
 117,Finland,5476922
 118,Slovakia,5445027
-119,Central African Republic,5391539
+119,Central African Rep.,5391539
 120,Turkmenistan,5231422
 121,Norway,5207689
 122,Georgia,4931226
 123,Ireland,4892305
 124,Costa Rica,4814144
-125,"Congo, Republic of the",4755097
+125,Congo,4755097
 126,Croatia,4464844
 127,New Zealand,4438393
 128,Liberia,4195666
-129,Bosnia and Herzegovina,3867055
+129,Bosnia and Herz.,3867055
 130,Panama,3657024
 131,Puerto Rico,3598357
 132,Mauritania,3596702
@@ -164,13 +164,13 @@ Pos,Name,Value
 163,Djibouti,828324
 164,Comoros,780971
 165,Bhutan,741919
-166,Equatorial Guinea,740743
+166,Eq. Guinea,740743
 167,Guyana,735222
 168,Montenegro,647073
 169,Solomon Islands,622469
 170,Macau,592731
 171,Suriname,579633
-172,Western Sahara,570866
+172,W. Sahara,570866
 173,Luxembourg,570252
 174,Cabo Verde,545993
 175,Brunei,429646

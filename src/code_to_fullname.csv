@@ -29,7 +29,7 @@ Benin,BN,BJ,BEN,204,BEN,.bj
 Bermuda,BD,BM,BMU,060,BMU,.bm
 Bhutan,BT,BT,BTN,064,BTN,.bt
 Bolivia,BL,BO,BOL,068,BOL,.bo
-Bosnia and Herzegovina,BK,BA,BIH,070,BIH,.ba
+Bosnia and Herz.,BK,BA,BIH,070,BIH,.ba
 Botswana,BC,BW,BWA,072,BWA,.bw
 Bouvet Island,BV,BV,BVT,074,BVT,.bv
 Brazil,BR,BR,BRA,076,BRA,.br
@@ -45,7 +45,7 @@ Cambodia,CB,KH,KHM,116,KHM,.kh
 Cameroon,CM,CM,CMR,120,CMR,.cm
 Canada,CA,CA,CAN,124,CAN,.ca
 Cayman Islands,CJ,KY,CYM,136,CYM,.ky
-Central African Republic,CT,CF,CAF,140,CAF,.cf
+Central African Rep.,CT,CF,CAF,140,CAF,.cf
 Chad,CD,TD,TCD,148,TCD,.td
 Chile,CI,CL,CHL,152,CHL,.cl
 China,CH,CN,CHN,156,CHN,.cn
@@ -54,26 +54,26 @@ Clipperton Island,IP,-,-,-,FYP,-
 Cocos (Keeling) Islands,CK,CC,CCK,166,AUS,.cc
 Colombia,CO,CO,COL,170,COL,.co
 Comoros,CN,KM,COM,174,COM,.km
-"Congo, Democratic Republic of the",CG,CD,COD,180,COD,.cd
-"Congo, Republic of the",CF,CG,COG,178,COG,.cg
+Dem. Rep. Congo,CG,CD,COD,180,COD,.cd
+Congo,CF,CG,COG,178,COG,.cg
 Cook Islands,CW,CK,COK,184,COK,.ck
 Coral Sea Islands,CR,-,-,-,AUS,-
 Costa Rica,CS,CR,CRI,188,CRI,.cr
-Cote d'Ivoire,IV,CI,CIV,384,CIV,.ci
+Côte d'Ivoire,IV,CI,CIV,384,CIV,.ci
 Croatia,HR,HR,HRV,191,HRV,.hr
 Cuba,CU,CU,CUB,192,CUB,.cu
 Curacao,UC,CW,CUW,531,-,.cw
 Cyprus,CY,CY,CYP,196,CYP,.cy
-Czech Republic,EZ,CZ,CZE,203,CZE,.cz
+Czech Rep.,EZ,CZ,CZE,203,CZE,.cz
 Denmark,DA,DK,DNK,208,DNK,.dk
 Dhekelia,DX,-,-,-,-,-
 Djibouti,DJ,DJ,DJI,262,DJI,.dj
 Dominica,DO,DM,DMA,212,DMA,.dm
-Dominican Republic,DR,DO,DOM,214,DOM,.do
+Dominican Rep.,DR,DO,DOM,214,DOM,.do
 Ecuador,EC,EC,ECU,218,ECU,.ec
 Egypt,EG,EG,EGY,818,EGY,.eg
 El Salvador,ES,SV,SLV,222,SLV,.sv
-Equatorial Guinea,EK,GQ,GNQ,226,GNQ,.gq
+Eq. Guinea,EK,GQ,GNQ,226,GNQ,.gq
 Eritrea,ER,ER,ERI,232,ERI,.er
 Estonia,EN,EE,EST,233,EST,.ee
 Ethiopia,ET,ET,ETH,231,ETH,.et
@@ -135,10 +135,10 @@ Kingman Reef,KQ,-,-,-,UMI,-
 Kiribati,KR,KI,KIR,296,KIR,.ki
 "Korea, North",KN,KP,PRK,408,PRK,.kp
 "Korea, South",KS,KR,KOR,410,KOR,.kr
-Kosovo,KV,XK,XKS,-,-,-
+Kosovo,KV,XK,-99,-,-,-
 Kuwait,KU,KW,KWT,414,KWT,.kw
 Kyrgyzstan,KG,KG,KGZ,417,KGZ,.kg
-Laos,LA,LA,LAO,418,LAO,.la
+Lao PDR,LA,LA,LAO,418,LAO,.la
 Latvia,LG,LV,LVA,428,LVA,.lv
 Lebanon,LE,LB,LBN,422,LBN,.lb
 Lesotho,LT,LS,LSO,426,LSO,.ls
@@ -171,7 +171,7 @@ Montserrat,MH,MS,MSR,500,MSR,.ms
 Morocco,MO,MA,MAR,504,MAR,.ma
 Mozambique,MZ,MZ,MOZ,508,MOZ,.mz
 Myanmar,-,-,-,-,-,-
-Namibia,WA,NA,NAM,516,NAM,.na
+Namibia,WA,,NAM,516,NAM,.na
 Nauru,NR,NR,NRU,520,NRU,.nr
 Navassa Island,BQ,-,-,-,UMI,-
 Nepal,NP,NP,NPL,524,NPL,.np
@@ -226,9 +226,10 @@ Slovakia,LO,SK,SVK,703,SVK,.sk
 Slovenia,SI,SI,SVN,705,SVN,.si
 Solomon Islands,BP,SB,SLB,090,SLB,.sb
 Somalia,SO,SO,SOM,706,SOM,.so
+Somaliland,SO,SO,SOM,706,SOM,.so
 South Africa,SF,ZA,ZAF,710,ZAF,.za
 South Georgia and the Islands,SX,GS,SGS,239,SGS,.gs
-South Sudan,OD,SS,SSD,728,-,-
+S. Sudan,OD,SS,SSD,728,-,-
 Spain,SP,ES,ESP,724,ESP,.es
 Spratly Islands,PG,-,-,-,-,-
 Sri Lanka,CE,LK,LKA,144,LKA,.lk
@@ -271,10 +272,11 @@ Virgin Islands (US),-,-,-,-,-,.vi
 Wake Island,WQ,-,-,-,UMI,-
 Wallis and Futuna,WF,WF,WLF,876,WLF,.wf
 West Bank,WE,PS,PSE,275,PSE,.ps
-Western Sahara,WI,EH,ESH,732,ESH,.eh
+W. Sahara,WI,EH,ESH,732,ESH,.eh
 Western Samoa,-,-,-,-,-,.ws
 World,-,-,-,-,-,-
 Yemen,YM,YE,YEM,887,YEM,.ye
 Zaire,-,-,-,-,-,-
 Zambia,ZA,ZM,ZMB,894,ZMB,.zm
 Zimbabwe,ZI,ZW,ZWE,716,ZWE,.zw
+Myanmar,MM,MMR,-,-,-,-

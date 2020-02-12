@@ -206,15 +206,15 @@
                   }
                })
                .on("click", function(d, i) {
-                  document.getElementById("table-country-pop1").innerText = "";
-                  document.getElementById("table-country-name1").innerText = "";
-                  document.getElementById("r1c4").innerText = "";
-                  document.getElementById("r1c5").innerText = "";
-                  document.getElementById("r1c6").innerText = "";
-                  document.getElementById("r1c7").innerText = "";
                   if (d3.select(this).classed("country-filtered")) {
                      // do nothing?
                   } else {
+                     document.getElementById("table-country-pop1").innerText = "";
+                     document.getElementById("table-country-name1").innerText = "";
+                     document.getElementById("r1c4").innerText = "";
+                     document.getElementById("r1c5").innerText = "";
+                     document.getElementById("r1c6").innerText = "";
+                     document.getElementById("r1c7").innerText = "";
                      d3.selectAll(".country").classed("country-click", false);
                      d3.select(this).classed("country-click_hover", true);
                      document.getElementById("table-country-name1").innerText = d.properties.name;
