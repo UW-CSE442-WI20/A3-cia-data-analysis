@@ -27,59 +27,45 @@
       list_dict[attributes[4]] = generateAttribute(dataLoc5);
 
 
-      var slider1 = createD3RangeSlider(0, 100, "#slider-container1");
-
+      var slider1 = createD3RangeSlider(0, 75, "#slider-container1");
       slider1.onChange(function(newRange) {
          d3.select("#range-label1").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
          sliders_begin[0] = newRange.begin;
          sliders_end[0] = newRange.end;
          updateFilter();
       });
+      slider1.range(0, 75);
 
-      slider1.range(0, 100);
-
-
-      var slider2 = createD3RangeSlider(0, 100, "#slider-container2");
-
+      var slider2 = createD3RangeSlider(0, 40, "#slider-container2");
       slider2.onChange(function(newRange) {
          d3.select("#range-label2").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
          sliders_begin[1] = newRange.begin;
          sliders_end[1] = newRange.end;
          updateFilter();
       });
+      slider2.range(0, 40);
 
-      slider2.range(0, 100);
-
-
-      var slider3 = createD3RangeSlider(0, 100, "#slider-container3");
-
+      var slider3 = createD3RangeSlider(0, 50, "#slider-container3");
       slider3.onChange(function(newRange) {
          d3.select("#range-label3").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
          sliders_begin[2] = newRange.begin;
          sliders_end[2] = newRange.end;
          updateFilter();
       });
+      slider3.range(0, 50);
 
-      slider3.range(0, 100);
-
-
-      var slider4 = createD3RangeSlider(0, 100, "#slider-container4");
-
+      var slider4 = createD3RangeSlider(0, 20, "#slider-container4");
       slider4.onChange(function(newRange) {
          d3.select("#range-label4").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
          sliders_begin[3] = newRange.begin;
          sliders_end[3] = newRange.end;
          updateFilter();
       });
-
-      slider4.range(0, 100);
-
+      slider4.range(0, 20);
 
       function updateFilter() {
          filterList = d3.selectAll(".country")._groups[0];
          const dataLoc = require('./code_to_fullname.csv');
-         // console.log(dataLoc);
-
          d3.csv(dataLoc, function(data) {
             for (i = 0; i < filterList.length; i++) {
                is_out = false
@@ -117,10 +103,8 @@
       }
 
       function generateAttribute(dataLoc) {
-         // console.log(dataLoc);
          var list = [];
          d3.csv(dataLoc, function(data) {
-            // console.log(data[0].Value);
             for (var i = 0; i < data.length; i++) {
                list.push(data[i]);
             }
