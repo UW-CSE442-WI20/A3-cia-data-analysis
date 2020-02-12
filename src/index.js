@@ -13,20 +13,22 @@
       ;
 
     var sliders_begin = [0, 0, 0, 0];
-    var sliders_end = [100, 100, 100, 1367485388];
-    var attributes = ["population", "obesity_rate", "unemployment", "death_rate"]
+    var sliders_end = [100, 100, 100, 100];
+    var attributes = ["unemployment", "obesity_rate", "birth_rate", "death_rate", "population"];
     var list_dict = new Object();
-    const dataLoc1 = require("./population.csv")
-    const dataLoc2 = require("./obesity_rate.csv")
-    const dataLoc3 = require("./unemployment.csv")
-    const dataLoc4 = require("./death_rate.csv")
+    const dataLoc1 = require("./unemployment.csv");
+    const dataLoc2 = require("./obesity_rate.csv");
+    const dataLoc3 = require("./birth_rate.csv");
+    const dataLoc4 = require("./death_rate.csv");
+    const dataLoc5 = require("./population.csv");
     list_dict[attributes[0]] = generateAttribute(dataLoc1);
     list_dict[attributes[1]] = generateAttribute(dataLoc2);
     list_dict[attributes[2]] = generateAttribute(dataLoc3);
     list_dict[attributes[3]] = generateAttribute(dataLoc4);
+    list_dict[attributes[4]] = generateAttribute(dataLoc5);
 
 
-    var slider1 = createD3RangeSlider(0, 1367485388, "#slider-container1");
+    var slider1 = createD3RangeSlider(0, 100, "#slider-container1");
 
     slider1.onChange(function(newRange){
         d3.select("#range-label1").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
@@ -35,7 +37,7 @@
         updateFilter();
     });
 
-    slider1.range(0, 1367485388);
+    slider1.range(0, 100);
 
 
      var slider2 = createD3RangeSlider(0, 100, "#slider-container2");
@@ -87,9 +89,6 @@
               if (filterList[i].id.substring(7) == data[j].A2) {
                 attribute = attributes[k]
                 at_val = ""
-                // Going to need to make sure that we have an if branch for each
-                // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
-                // with just the last slider (Right now only 4th slider affects the map)
                 for (l = 0; l < list_dict[attribute].length; l++) {
                   if (data[j].Name == list_dict[attribute][l]["Name"]) {
                     at_val = list_dict[attribute][l].Value
@@ -119,7 +118,6 @@
         ;
       }
 
-
       function generateAttribute(dataLoc) {
         // console.log(dataLoc);
         var list = [];
@@ -139,7 +137,12 @@
                 if (list_dict[attribute][i]["Name"] == country) {
                     document.getElementById(tablename).innerText = parseInt(list_dict[attribute][i].Value).toLocaleString();
                 }
-             }
+                // these will all need to be hardcoded  
+             } else {
+                if (list_dict[attribute][i]["Name"] == country) {
+                    document.getElementById(tablename).innerText = list_dict[attribute][i].Value + "%";  // if not all of them are percent add another branch
+                }
+              }
           }
       }
       
@@ -197,15 +200,26 @@
                 d3.select(this).classed("country-click_hover", true)
                 document.getElementById("table-country-name2").innerText = d.properties.name;
                 pop2 = readAttribute(d.properties.name, "table-country-pop2", 'population');
+
               } else {
                 d3.select(this).classed("country-hover", true);
                 document.getElementById("table-country-name2").innerText = d.properties.name;
-                pop2 = readAttribute(d.properties.name, "table-country-pop2", 'population');
+                readAttribute(d.properties.name, "table-country-pop2", 'population');
+                readAttribute(d.properties.name, "r2c4", 'death_rate');
+                readAttribute(d.properties.name, "r2c5", 'obesity_rate');
+                readAttribute(d.properties.name, "r2c6", 'unemployment');
+                readAttribute(d.properties.name, "r2c7", 'death_rate');
+
               }
             })
             .on("mouseout", function(d, i) {
                 document.getElementById("table-country-pop2").innerText = "";
                 document.getElementById("table-country-name2").innerText = "";
+                document.getElementById("r2c4").innerText = "";
+                document.getElementById("r2c5").innerText = "";
+                document.getElementById("r2c6").innerText = "";
+                document.getElementById("r2c7").innerText = "";
+
                 d3.select(this).classed("country-hover", false);
                 if (d3.select(this).classed("country-click_hover")) {
                     d3.select(this).classed("country-click_hover", false)
@@ -213,13 +227,24 @@
                 }
             })
             .on("click", function(d, i) {
+              document.getElementById("table-country-pop1").innerText = "";
+              document.getElementById("table-country-name1").innerText = "";
+              document.getElementById("r1c4").innerText = "";
+              document.getElementById("r1c5").innerText = "";
+              document.getElementById("r1c6").innerText = "";
+              document.getElementById("r1c7").innerText = "";
               if (d3.select(this).classed("country-filtered")) {
                 // do nothing?
               } else {
                 d3.selectAll(".country").classed("country-click", false);
                 d3.select(this).classed("country-click_hover", true);
                 document.getElementById("table-country-name1").innerText = d.properties.name;
-                pop = readAttribute(d.properties.name, "table-country-pop1", 'population');
+                readAttribute(d.properties.name, "table-country-pop1", 'population');
+                readAttribute(d.properties.name, "r1c4", 'death_rate');
+                readAttribute(d.properties.name, "r1c5", 'obesity_rate');
+                readAttribute(d.properties.name, "r1c6", 'unemployment');
+                readAttribute(d.properties.name, "r1c7", 'death_rate');
+
               }
             })
 	    countryLabels = countriesGroup

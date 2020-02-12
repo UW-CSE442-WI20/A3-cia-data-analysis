@@ -6,8 +6,8 @@
     <title>CIA Factbook</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:bold' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
    <!-- Range slider code -->
    <script src="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.js"></script>
 
@@ -43,6 +43,14 @@
         fill: #900C3F;
       }
 
+      h3, th, td {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+
+      p {
+        font-family: 'Vollkorn', Georgia, Times, serif;
+      }
+
       .country-click_hover{
         fill: #6A334D;
       }
@@ -66,7 +74,7 @@
     </style>
   </head>
   <body style="font-family: sans-serif">
-    <div style="width: 25%; height: 8%; ">
+    <div style="width: 32%; height: 8%; ">
       <img src="dataviz.png" style="width: 100%; height: 100%;">
     </div>
     <div id="fullpage">
@@ -75,26 +83,32 @@
           <div id="slider-box" style="float:left; width:25%">
             <div style="height: auto;">
               <h3>Population:</h3>
+              <p class="subtitle-styling" style="text-indent: 10%">This is the number of people that live in the country</p>
             </div>
             <div id="range-label1">0 - 10</div>
             <div id="slider-container1" style="padding-bottom:20px;"></div>
-            
+            <hr width: 100%>
             <div style="height: auto;">
               <h3>Obesity:</h3>
+              <p class="subtitle-styling" style="text-indent: 10%">This is the number of people that live in the country</p>
             </div>
-            <div id="range-label2">0 - 10</div>
+            <div id="range-label2">0 - 10%</div>
             <div id="slider-container2" style="padding-bottom:20px"></div>
+            <hr width: 100%>
 
             <div style="height: auto;">
               <h3>Unemployment:</h3>
+              <p class="subtitle-styling" style="text-indent: 10%">This is the number of people that live in the country</p>
             </div>
-            <div id="range-label3">0 - 10</div>
+            <div id="range-label3">0 - 10%</div>
             <div id="slider-container3" style="padding-bottom:20px"></div>
+            <hr width: 100%>
 
             <div style="height: auto;">
               <h3>Death rate:</h3>
+              <p class="subtitle-styling" style="text-indent: 10%">This is the number of people that live in the country</p>
             </div>
-            <div id="range-label4">0 - 10</div>
+            <div id="range-label4">0 - 10%</div>
             <div id="slider-container4" style="padding-bottom:20px"></div>
           </div>
           <script src="./index.js"></script>
@@ -111,25 +125,28 @@
               <th></th>
               <th>Country</th>
               <th>Population</th>
-              <th>thing2</th>
-              <th>thing3</th>
-              <th>thing4</th>
+              <th id="thing2">Unemployment</th>
+              <th id="thing3">Obesity Rate</th>
+              <th id="thing4">Birth Rate</th>
+              <th id="thing5">Death Rate</th>
             </tr>
             <tr>
               <td id="type1">Click Selection</td>
               <td id="table-country-name1"></td>
               <td id="table-country-pop1"></td>
-              <td id="table-country-people"></td>
-              <td id="table-country-test"></td>
-              <td id="thing4"></td>
+              <td id="r1c4"></td>
+              <td id="r1c5"></td>
+              <td id="r1c6"></td>
+              <td id="r1c7"></td>
             </tr>
             <tr>
               <td id="type2">Hover Selection</td>
               <td id="table-country-name2"></td>
               <td id="table-country-pop2"></td>
-              <td id="table-country-people"></td>
-              <td id="table-country-test"></td>
-              <td id="thing4"></td>
+              <td id="r2c4"></td>
+              <td id="r2c5"></td>
+              <td id="r2c6"></td>
+              <td id="r2c7"></td>
             </tr>
 
           </table></div>    
