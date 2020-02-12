@@ -14,15 +14,19 @@
 
     var sliders_begin = [0, 0, 0, 0];
     var sliders_end = [0, 0, 0, 0];
-    var attributes = ["population"]
+    var attributes = ["population", "obesity_rate", "unemployment", "death_rate"]
     var list_dict = new Object();
-    const pop_dataLoc = require("./population.csv")
-    list_dict[attributes[0]] = generateAttribute(pop_dataLoc);
+    const pop_dataLoc1 = require("./population.csv")
+    const pop_dataLoc2 = require("./obesity_rate.csv")
+    const pop_dataLoc3 = require("./unemployment.csv")
+    const pop_dataLoc4 = require("./death_rate.csv")
 
+    list_dict[attributes[0]] = generateAttribute(pop_dataLoc1);
+    list_dict[attributes[1]] = generateAttribute(pop_dataLoc2);
+    list_dict[attributes[2]] = generateAttribute(pop_dataLoc3);
+    list_dict[attributes[3]] = generateAttribute(pop_dataLoc4);
 
-
-
-    var slider1 = createD3RangeSlider(0, 2000000000, "#slider-container1");
+    var slider1 = createD3RangeSlider(0, 1367485388, "#slider-container1");
 
     slider1.onChange(function(newRange){
         d3.select("#range-label1").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
@@ -31,10 +35,10 @@
         updateFilter();
     });
 
-    slider1.range(0, 0);
+    slider1.range(0, 1367485388);
 
 
-     var slider2 = createD3RangeSlider(0, 2000000000, "#slider-container2");
+     var slider2 = createD3RangeSlider(0, 100, "#slider-container2");
 
     slider2.onChange(function(newRange){
         d3.select("#range-label2").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
@@ -43,10 +47,10 @@
         updateFilter();
     });
 
-    slider2.range(0,0);
+    slider2.range(40,60);
 
 
- var slider3 = createD3RangeSlider(0, 2000000000, "#slider-container3");
+ var slider3 = createD3RangeSlider(0, 100, "#slider-container3");
 
     slider3.onChange(function(newRange){
         d3.select("#range-label3").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
@@ -55,10 +59,10 @@
         updateFilter();
     });
 
-    slider3.range(0,0);
+    slider3.range(40,60);
 
 
- var slider4 = createD3RangeSlider(0, 1367485388, "#slider-container4");
+ var slider4 = createD3RangeSlider(0, 100, "#slider-container4");
 
     slider4.onChange(function(newRange){
         d3.select("#range-label4").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
@@ -67,7 +71,7 @@
         updateFilter();
     });
 
-    slider4.range(0,1367485388);
+    slider4.range(0,100);
 
 
       function updateFilter() {
