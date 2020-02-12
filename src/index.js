@@ -13,7 +13,12 @@
       ;
     var sliders_begin = [0, 0, 0, 0];
     var sliders_end = [0, 0, 0, 0];
-    var pop_list = generatePopulation();
+    var attributes = ["population"]
+    var list_dict = new Object();
+    const pop_dataLoc = require("./population.csv")
+    list_dict[attributes[0]] = generateAttribute(pop_dataLoc);
+
+
 
 
     var slider1 = createD3RangeSlider(0, 2000000000, "#slider-container1");
@@ -73,20 +78,23 @@
           for (i = 0; i < filterList.length; i++) {
             for (j = 0; j < data.length; j++) {
               if (filterList[i].id.substring(7) == data[j].A2) {
-                attribute = "";
-                // Going to need to make sure that we have an if branch for each
-                // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
-                // with just the last slider (Right now only 4th slider affects the map)
-                for (l = 0; l < pop_list.length; l++) {
-                  if (data[j].Name == pop_list[l]["Name"]) {
-                    attribute = pop_list[l].Value;
-                  }
-                }
-                if (attribute < sliders_begin[k] || attribute > sliders_end[k]) { 
-                  d3.select(filterList[i]).classed("country-filtered", true);
-                } else {
-                  d3.select(filterList[i]).classed("country-filtered", false);
-                }
+                for (m = 0; m < attributes.length; m++) {
+                    attribute = attributes[m]
+                    at_val = ""
+                    // Going to need to make sure that we have an if branch for each
+                    // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
+                    // with just the last slider (Right now only 4th slider affects the map)
+                    for (l = 0; l < list_dict[attribute].length; l++) {
+                      if (data[j].Name == list_dict[attribute][l]["Name"]) {
+                        at_val = list_dict[attribute][l].Value;
+                      }
+                    }
+                    if (at_val < sliders_begin[k] || at_val > sliders_end[k]) {
+                      d3.select(filterList[i]).classed("country-filtered", true);
+                    } else {
+                      d3.select(filterList[i]).classed("country-filtered", false);
+                    }
+                 }
               }
             }
           }
@@ -103,8 +111,7 @@
         ;
       }
 
-       function generatePopulation() {
-        const dataLoc = require('./population.csv');
+      function generateAttribute(dataLoc) {
         // console.log(dataLoc);
         var list = [];
         d3.csv(dataLoc, function(data) {
@@ -116,17 +123,15 @@
         return list;
       }
 
-      function readPopulation(country, tablename) {
-        const dataLoc = require('./population.csv');
-        // console.log(dataLoc);
-        d3.csv(dataLoc, function(data) {
+      function readAttribute(country, tablename, attribute) {
           // console.log(data[0].Value);
-          for (var i = 0; i < data.length; i++) {
-            if (data[i]["Name"] == country) {
-              document.getElementById(tablename).innerText = parseInt(data[i].Value).toLocaleString();
-            }
+          for (var i = 0; i < list_dict[attribute].length; i++) {
+            if (attribute == 'population') {
+                if (list_dict[attribute][i]["Name"] == country) {
+                    document.getElementById(tablename).innerText = parseInt(list_dict[attribute][i].Value).toLocaleString();
+                }
+             }
           }
-        })
       }
       
       // on window resize
@@ -183,11 +188,11 @@
                 console.log("hello")
                 d3.select(this).classed("country-click_hover", true)
                 document.getElementById("table-country-name2").innerText = d.properties.name;
-                pop2 = readPopulation(d.properties.name, "table-country-pop2");
+                pop2 = readAttribute(d.properties.name, "table-country-pop2", 'population');
               } else {
                 d3.select(this).classed("country-hover", true);
                 document.getElementById("table-country-name2").innerText = d.properties.name;
-                pop2 = readPopulation(d.properties.name, "table-country-pop2");
+                pop2 = readAttribute(d.properties.name, "table-country-pop2", 'population');
               }
             })
             .on("mouseout", function(d, i) {
@@ -206,7 +211,7 @@
                 d3.selectAll(".country").classed("country-click", false);
                 d3.select(this).classed("country-click_hover", true);
                 document.getElementById("table-country-name1").innerText = d.properties.name;
-                pop = readPopulation(d.properties.name, "table-country-pop1");
+                pop = readAttribute(d.properties.name, "table-country-pop1", 'population');
               }
             })
 	    countryLabels = countriesGroup
