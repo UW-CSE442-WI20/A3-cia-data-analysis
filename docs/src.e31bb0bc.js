@@ -117,10 +117,18 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"code_to_fullname.csv":[function(require,module,exports) {
-module.exports = "/code_to_fullname.3d58c414.csv";
+})({"unemployment.csv":[function(require,module,exports) {
+module.exports = "/unemployment.0f019eae.csv";
+},{}],"obesity_rate.csv":[function(require,module,exports) {
+module.exports = "/obesity_rate.7e5330aa.csv";
+},{}],"birth_rate.csv":[function(require,module,exports) {
+module.exports = "/birth_rate.642b7132.csv";
+},{}],"death_rate.csv":[function(require,module,exports) {
+module.exports = "/death_rate.1b74d2b7.csv";
 },{}],"population.csv":[function(require,module,exports) {
 module.exports = "/population.acf7c57f.csv";
+},{}],"code_to_fullname.csv":[function(require,module,exports) {
+module.exports = "/code_to_fullname.3d58c414.csv";
 },{}],"index.js":[function(require,module,exports) {
 // DEFINE FUNCTIONS/OBJECTS
 // Define map projection
@@ -130,69 +138,90 @@ var projection = d3.geoEquirectangular().center([0, 15]) // set centre to furthe
 
 var path = d3.geoPath().projection(projection);
 var sliders_begin = [0, 0, 0, 0];
-var sliders_end = [0, 0, 0, 0];
-var pop_list = generatePopulation();
-var slider1 = createD3RangeSlider(0, 2000000000, "#slider-container1");
+var sliders_end = [100, 100, 100, 100];
+var attributes = ["unemployment", "obesity_rate", "birth_rate", "death_rate", "population"];
+var list_dict = new Object();
+
+var dataLoc1 = require("./unemployment.csv");
+
+var dataLoc2 = require("./obesity_rate.csv");
+
+var dataLoc3 = require("./birth_rate.csv");
+
+var dataLoc4 = require("./death_rate.csv");
+
+var dataLoc5 = require("./population.csv");
+
+list_dict[attributes[0]] = generateAttribute(dataLoc1);
+list_dict[attributes[1]] = generateAttribute(dataLoc2);
+list_dict[attributes[2]] = generateAttribute(dataLoc3);
+list_dict[attributes[3]] = generateAttribute(dataLoc4);
+list_dict[attributes[4]] = generateAttribute(dataLoc5);
+var slider1 = createD3RangeSlider(0, 75, "#slider-container1");
 slider1.onChange(function (newRange) {
-  d3.select("#range-label1").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
+  d3.select("#range-label1").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
   sliders_begin[0] = newRange.begin;
   sliders_end[0] = newRange.end;
   updateFilter();
 });
-slider1.range(0, 0);
-var slider2 = createD3RangeSlider(0, 2000000000, "#slider-container2");
+slider1.range(0, 75);
+var slider2 = createD3RangeSlider(0, 40, "#slider-container2");
 slider2.onChange(function (newRange) {
-  d3.select("#range-label2").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
+  d3.select("#range-label2").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
   sliders_begin[1] = newRange.begin;
   sliders_end[1] = newRange.end;
   updateFilter();
 });
-slider2.range(0, 0);
-var slider3 = createD3RangeSlider(0, 2000000000, "#slider-container3");
+slider2.range(0, 40);
+var slider3 = createD3RangeSlider(0, 50, "#slider-container3");
 slider3.onChange(function (newRange) {
   d3.select("#range-label3").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
   sliders_begin[2] = newRange.begin;
   sliders_end[2] = newRange.end;
   updateFilter();
 });
-slider3.range(0, 0);
-var slider4 = createD3RangeSlider(0, 1367485388, "#slider-container4");
+slider3.range(0, 50);
+var slider4 = createD3RangeSlider(0, 20, "#slider-container4");
 slider4.onChange(function (newRange) {
   d3.select("#range-label4").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
   sliders_begin[3] = newRange.begin;
   sliders_end[3] = newRange.end;
   updateFilter();
 });
-slider4.range(0, 1367485388);
+slider4.range(0, 20);
 
 function updateFilter() {
   filterList = d3.selectAll(".country")._groups[0];
 
-  var dataLoc = require('./code_to_fullname.csv'); // console.log(dataLoc);
-
+  var dataLoc = require('./code_to_fullname.csv');
 
   d3.csv(dataLoc, function (data) {
-    for (k = 0; k < sliders_begin.length; k++) {
-      for (i = 0; i < filterList.length; i++) {
+    for (i = 0; i < filterList.length; i++) {
+      is_out = false;
+
+      for (k = 0; k < sliders_begin.length; k++) {
         for (j = 0; j < data.length; j++) {
           if (filterList[i].id.substring(7) == data[j].A2) {
-            attribute = ""; // Going to need to make sure that we have an if branch for each
-            // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
-            // with just the last slider (Right now only 4th slider affects the map)
+            attribute = attributes[k];
+            at_val = "";
 
-            for (l = 0; l < pop_list.length; l++) {
-              if (data[j].Name == pop_list[l]["Name"]) {
-                attribute = pop_list[l].Value;
+            for (l = 0; l < list_dict[attribute].length; l++) {
+              if (data[j].Name == list_dict[attribute][l]["Name"]) {
+                at_val = list_dict[attribute][l].Value;
               }
             }
 
-            if (attribute < sliders_begin[k] || attribute > sliders_end[k]) {
-              d3.select(filterList[i]).classed("country-filtered", true);
-            } else {
-              d3.select(filterList[i]).classed("country-filtered", false);
+            if (at_val < sliders_begin[k] || at_val > sliders_end[k]) {
+              is_out = true;
             }
           }
         }
+      }
+
+      if (is_out) {
+        d3.select(filterList[i]).classed("country-filtered", true);
+      } else {
+        d3.select(filterList[i]).classed("country-filtered", false);
       }
     }
   });
@@ -204,33 +233,30 @@ function getTextBox(selection) {
   });
 }
 
-function generatePopulation() {
-  var dataLoc = require('./population.csv'); // console.log(dataLoc);
-
-
+function generateAttribute(dataLoc) {
   var list = [];
   d3.csv(dataLoc, function (data) {
-    // console.log(data[0].Value);
     for (var i = 0; i < data.length; i++) {
       list.push(data[i]);
     }
   });
   return list;
-} // use poplist TODO
+}
 
+function readAttribute(country, tablename, attribute) {
+  // console.log(data[0].Value);
+  for (var i = 0; i < list_dict[attribute].length; i++) {
+    if (attribute == 'population') {
+      if (list_dict[attribute][i]["Name"] == country) {
+        document.getElementById(tablename).innerText = parseInt(list_dict[attribute][i].Value).toLocaleString();
+      } // these will all need to be hardcoded  
 
-function readPopulation(country, tablename) {
-  var dataLoc = require('./population.csv'); // console.log(dataLoc);
-
-
-  d3.csv(dataLoc, function (data) {
-    // console.log(data[0].Value);
-    for (var i = 0; i < data.length; i++) {
-      if (data[i]["Name"] == country) {
-        document.getElementById(tablename).innerText = parseInt(data[i].Value).toLocaleString();
+    } else {
+      if (list_dict[attribute][i]["Name"] == country) {
+        document.getElementById(tablename).innerText = list_dict[attribute][i].Value + "%"; // if not all of them are percent add another branch
       }
     }
-  });
+  }
 } // on window resize
 
 
@@ -257,18 +283,25 @@ d3.json("https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/
     d3.selectAll(".country").classed("country-hover", false);
 
     if (d3.select(this).classed("country-filtered") || d3.select(this).classed("country-click_hover")) {} else if (d3.select(this).classed("country-click")) {
-      console.log("hello");
       d3.select(this).classed("country-click_hover", true);
       document.getElementById("table-country-name2").innerText = d.properties.name;
-      pop2 = readPopulation(d.properties.name, "table-country-pop2");
+      pop2 = readAttribute(d.properties.name, "table-country-pop2", 'population');
     } else {
       d3.select(this).classed("country-hover", true);
       document.getElementById("table-country-name2").innerText = d.properties.name;
-      pop2 = readPopulation(d.properties.name, "table-country-pop2");
+      readAttribute(d.properties.name, "table-country-pop2", 'population');
+      readAttribute(d.properties.name, "r2c4", 'unemployment');
+      readAttribute(d.properties.name, "r2c5", 'obesity_rate');
+      readAttribute(d.properties.name, "r2c6", 'birth_rate');
+      readAttribute(d.properties.name, "r2c7", 'death_rate');
     }
   }).on("mouseout", function (d, i) {
     document.getElementById("table-country-pop2").innerText = "";
     document.getElementById("table-country-name2").innerText = "";
+    document.getElementById("r2c4").innerText = "";
+    document.getElementById("r2c5").innerText = "";
+    document.getElementById("r2c6").innerText = "";
+    document.getElementById("r2c7").innerText = "";
     d3.select(this).classed("country-hover", false);
 
     if (d3.select(this).classed("country-click_hover")) {
@@ -276,19 +309,30 @@ d3.json("https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/
       d3.select(this).classed("country-click", true);
     }
   }).on("click", function (d, i) {
+    document.getElementById("table-country-pop1").innerText = "";
+    document.getElementById("table-country-name1").innerText = "";
+    document.getElementById("r1c4").innerText = "";
+    document.getElementById("r1c5").innerText = "";
+    document.getElementById("r1c6").innerText = "";
+    document.getElementById("r1c7").innerText = "";
+
     if (d3.select(this).classed("country-filtered")) {// do nothing?
     } else {
       d3.selectAll(".country").classed("country-click", false);
       d3.select(this).classed("country-click_hover", true);
       document.getElementById("table-country-name1").innerText = d.properties.name;
-      pop = readPopulation(d.properties.name, "table-country-pop1");
+      readAttribute(d.properties.name, "table-country-pop1", 'population');
+      readAttribute(d.properties.name, "r1c4", 'unemployment');
+      readAttribute(d.properties.name, "r1c5", 'obesity_rate');
+      readAttribute(d.properties.name, "r1c6", 'birth_rate');
+      readAttribute(d.properties.name, "r1c7", 'death_rate');
     }
   });
   countryLabels = countriesGroup.selectAll("g").data(json.features).enter().append("g").attr("class", "countryLabel").attr("id", function (d) {
     return "countryLabel" + d.properties.iso_a3;
   });
 });
-},{"./code_to_fullname.csv":"code_to_fullname.csv","./population.csv":"population.csv"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./unemployment.csv":"unemployment.csv","./obesity_rate.csv":"obesity_rate.csv","./birth_rate.csv":"birth_rate.csv","./death_rate.csv":"death_rate.csv","./population.csv":"population.csv","./code_to_fullname.csv":"code_to_fullname.csv"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -316,7 +360,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50708" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50425" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
