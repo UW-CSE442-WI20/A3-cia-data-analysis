@@ -13,18 +13,18 @@
       ;
 
     var sliders_begin = [0, 0, 0, 0];
-    var sliders_end = [0, 0, 0, 0];
+    var sliders_end = [100, 100, 100, 1367485388];
     var attributes = ["population", "obesity_rate", "unemployment", "death_rate"]
     var list_dict = new Object();
-    const pop_dataLoc1 = require("./population.csv")
-    const pop_dataLoc2 = require("./obesity_rate.csv")
-    const pop_dataLoc3 = require("./unemployment.csv")
-    const pop_dataLoc4 = require("./death_rate.csv")
+    const dataLoc1 = require("./population.csv")
+    const dataLoc2 = require("./obesity_rate.csv")
+    const dataLoc3 = require("./unemployment.csv")
+    const dataLoc4 = require("./death_rate.csv")
+    list_dict[attributes[0]] = generateAttribute(dataLoc1);
+    list_dict[attributes[1]] = generateAttribute(dataLoc2);
+    list_dict[attributes[2]] = generateAttribute(dataLoc3);
+    list_dict[attributes[3]] = generateAttribute(dataLoc4);
 
-    list_dict[attributes[0]] = generateAttribute(pop_dataLoc1);
-    list_dict[attributes[1]] = generateAttribute(pop_dataLoc2);
-    list_dict[attributes[2]] = generateAttribute(pop_dataLoc3);
-    list_dict[attributes[3]] = generateAttribute(pop_dataLoc4);
 
     var slider1 = createD3RangeSlider(0, 1367485388, "#slider-container1");
 
@@ -47,7 +47,7 @@
         updateFilter();
     });
 
-    slider2.range(40,60);
+    slider2.range(0,100);
 
 
  var slider3 = createD3RangeSlider(0, 100, "#slider-container3");
@@ -59,7 +59,7 @@
         updateFilter();
     });
 
-    slider3.range(40,60);
+    slider3.range(0,100);
 
 
  var slider4 = createD3RangeSlider(0, 100, "#slider-container4");
@@ -78,30 +78,33 @@
         filterList = d3.selectAll(".country")._groups[0];
         const dataLoc = require('./code_to_fullname.csv');
         // console.log(dataLoc);
+
         d3.csv(dataLoc, function(data) {
-        for (k = 0; k < sliders_begin.length; k++) {
-          for (i = 0; i < filterList.length; i++) {
+        for (i = 0; i < filterList.length; i++) {
+          is_out = false
+          for (k = 0; k < sliders_begin.length; k++) {
             for (j = 0; j < data.length; j++) {
               if (filterList[i].id.substring(7) == data[j].A2) {
-                for (m = 0; m < attributes.length; m++) {
-                    attribute = attributes[m]
-                    at_val = ""
-                    // Going to need to make sure that we have an if branch for each
-                    // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
-                    // with just the last slider (Right now only 4th slider affects the map)
-                    for (l = 0; l < list_dict[attribute].length; l++) {
-                      if (data[j].Name == list_dict[attribute][l]["Name"]) {
-                        at_val = list_dict[attribute][l].Value;
-                      }
-                    }
-                    if (at_val < sliders_begin[k] || at_val > sliders_end[k]) {
-                      d3.select(filterList[i]).classed("country-filtered", true);
-                    } else {
-                      d3.select(filterList[i]).classed("country-filtered", false);
-                    }
-                 }
+                attribute = attributes[k]
+                at_val = ""
+                // Going to need to make sure that we have an if branch for each
+                // of the 4 sliders so that we don't overwrite all the countries that are being dropped off
+                // with just the last slider (Right now only 4th slider affects the map)
+                for (l = 0; l < list_dict[attribute].length; l++) {
+                  if (data[j].Name == list_dict[attribute][l]["Name"]) {
+                    at_val = list_dict[attribute][l].Value
+                  }
+                }
+                if (at_val < sliders_begin[k] || at_val > sliders_end[k]) {
+                    is_out = true
+                }
               }
             }
+          }
+          if (is_out) {
+            d3.select(filterList[i]).classed("country-filtered", true);
+          } else {
+            d3.select(filterList[i]).classed("country-filtered", false);
           }
         }
         })
@@ -191,7 +194,6 @@
 
               if (d3.select(this).classed("country-filtered") || d3.select(this).classed("country-click_hover")) {
               } else if (d3.select(this).classed("country-click")) {
-                console.log("hello")
                 d3.select(this).classed("country-click_hover", true)
                 document.getElementById("table-country-name2").innerText = d.properties.name;
                 pop2 = readAttribute(d.properties.name, "table-country-pop2", 'population');
