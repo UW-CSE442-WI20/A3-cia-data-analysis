@@ -13,12 +13,12 @@
 
       var sliders_begin = [0, 0, 0, 0];
       var sliders_end = [100, 100, 100, 100];
-      var attributes = ["unemployment", "obesity_rate", "birth_rate", "death_rate", "population"];
+      var attributes = ["unemployment", "gdp_growth_rate", "health_expenditure", "education_expenditure", "population"];
       var list_dict = new Object();
-      const dataLoc1 = require("./gdp_growth_rate.csv");
-      const dataLoc2 = require("./education_expenditures.csv");
-      const dataLoc3 = require("./unemployment.csv");
-      const dataLoc4 = require("./health_expenditures.csv");
+      const dataLoc2 = require("./gdp_growth_rate.csv");
+      const dataLoc4 = require("./education_expenditures.csv");
+      const dataLoc1 = require("./unemployment.csv");
+      const dataLoc3 = require("./health_expenditures.csv");
       const dataLoc5 = require("./population.csv");
       list_dict[attributes[0]] = generateAttribute(dataLoc1);
       list_dict[attributes[1]] = generateAttribute(dataLoc2);
@@ -27,36 +27,36 @@
       list_dict[attributes[4]] = generateAttribute(dataLoc5);
 
 
-      var slider1 = createD3RangeSlider(0, 75, "#slider-container1");
+      var slider1 = createD3RangeSlider(0, 70, "#slider-container1");
       slider1.onChange(function(newRange) {
          d3.select("#range-label1").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
          sliders_begin[0] = newRange.begin;
          sliders_end[0] = newRange.end;
          updateFilter();
       });
-      slider1.range(0, 75);
+      slider1.range(0, 70);
 
-      var slider2 = createD3RangeSlider(0, 40, "#slider-container2");
+      var slider2 = createD3RangeSlider(-20, 20, "#slider-container2");
       slider2.onChange(function(newRange) {
          d3.select("#range-label2").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
          sliders_begin[1] = newRange.begin;
          sliders_end[1] = newRange.end;
          updateFilter();
       });
-      slider2.range(0, 40);
+      slider2.range(-20, 20);
 
-      var slider3 = createD3RangeSlider(0, 50, "#slider-container3");
+      var slider3 = createD3RangeSlider(0, 20, "#slider-container3");
       slider3.onChange(function(newRange) {
-         d3.select("#range-label3").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
+         d3.select("#range-label3").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
          sliders_begin[2] = newRange.begin;
          sliders_end[2] = newRange.end;
          updateFilter();
       });
-      slider3.range(0, 50);
+      slider3.range(0, 20);
 
       var slider4 = createD3RangeSlider(0, 20, "#slider-container4");
       slider4.onChange(function(newRange) {
-         d3.select("#range-label4").text(newRange.begin.toLocaleString() + " - " + newRange.end.toLocaleString());
+         d3.select("#range-label4").text(newRange.begin.toLocaleString() + "% - " + newRange.end.toLocaleString() + "%");
          sliders_begin[3] = newRange.begin;
          sliders_end[3] = newRange.end;
          updateFilter();
@@ -175,19 +175,22 @@
                .on("mouseover", function(d, i) {
                   d3.selectAll(".country").classed("country-hover", false);
 
-                  if (d3.select(this).classed("country-filtered") || d3.select(this).classed("country-click_hover")) {} else if (d3.select(this).classed("country-click")) {
+                  if (d3.select(this).classed("country-filtered")) {} else if (d3.select(this).classed("country-click")) {
                      d3.select(this).classed("country-click_hover", true)
                      document.getElementById("table-country-name2").innerText = d.properties.name;
-                     pop2 = readAttribute(d.properties.name, "table-country-pop2", 'population');
-
+                     pop2 = readAttribute(d.properties.name, "table-country-pop2", attributes[4]);
+                     readAttribute(d.properties.name, "r2c4", attributes[0]);
+                     readAttribute(d.properties.name, "r2c5", attributes[1]);
+                     readAttribute(d.properties.name, "r2c6", attributes[2]);
+                     readAttribute(d.properties.name, "r2c7", attributes[3]);
                   } else {
                      d3.select(this).classed("country-hover", true);
                      document.getElementById("table-country-name2").innerText = d.properties.name;
-                     readAttribute(d.properties.name, "table-country-pop2", 'population');
-                     readAttribute(d.properties.name, "r2c4", 'unemployment');
-                     readAttribute(d.properties.name, "r2c5", 'obesity_rate');
-                     readAttribute(d.properties.name, "r2c6", 'birth_rate');
-                     readAttribute(d.properties.name, "r2c7", 'death_rate');
+                     readAttribute(d.properties.name, "table-country-pop2", attributes[4]);
+                     readAttribute(d.properties.name, "r2c4", attributes[0]);
+                     readAttribute(d.properties.name, "r2c5", attributes[1]);
+                     readAttribute(d.properties.name, "r2c6", attributes[2]);
+                     readAttribute(d.properties.name, "r2c7", attributes[3]);
 
                   }
                })
@@ -218,11 +221,11 @@
                      d3.selectAll(".country").classed("country-click", false);
                      d3.select(this).classed("country-click_hover", true);
                      document.getElementById("table-country-name1").innerText = d.properties.name;
-                     readAttribute(d.properties.name, "table-country-pop1", 'population');
-                     readAttribute(d.properties.name, "r1c4", 'unemployment');
-                     readAttribute(d.properties.name, "r1c5", 'obesity_rate');
-                     readAttribute(d.properties.name, "r1c6", 'birth_rate');
-                     readAttribute(d.properties.name, "r1c7", 'death_rate');
+                     readAttribute(d.properties.name, "table-country-pop1", attributes[4]);
+                     readAttribute(d.properties.name, "r1c4", attributes[0]);
+                     readAttribute(d.properties.name, "r1c5", attributes[1]);
+                     readAttribute(d.properties.name, "r1c6", attributes[2]);
+                     readAttribute(d.properties.name, "r1c7", attributes[3]);
 
                   }
                })
