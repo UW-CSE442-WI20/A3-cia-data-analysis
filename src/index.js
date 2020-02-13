@@ -15,10 +15,10 @@
       var sliders_end = [100, 100, 100, 100];
       var attributes = ["unemployment", "obesity_rate", "birth_rate", "death_rate", "population"];
       var list_dict = new Object();
-      const dataLoc1 = require("./unemployment.csv");
-      const dataLoc2 = require("./obesity_rate.csv");
-      const dataLoc3 = require("./birth_rate.csv");
-      const dataLoc4 = require("./death_rate.csv");
+      const dataLoc1 = require("./gdp_growth_rate.csv");
+      const dataLoc2 = require("./education_expenditures.csv");
+      const dataLoc3 = require("./unemployment.csv");
+      const dataLoc4 = require("./health_expenditures.csv");
       const dataLoc5 = require("./population.csv");
       list_dict[attributes[0]] = generateAttribute(dataLoc1);
       list_dict[attributes[1]] = generateAttribute(dataLoc2);

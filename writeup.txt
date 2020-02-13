@@ -1,0 +1,20 @@
+WRITEUP
+    Our dataset was the CIA Factbook, which includes global data on health, economy, energy,
+and other features. Because the data was, at its core, geographic in the sense that each
+country had its own values for each of the data categories. Thus, we knew from the beginning
+that our visualization would have some kind of map component to it. From there, we had
+to wrestle with the sheer number of features that the data contained. It quickly became
+overwhelming to try and incorporate all of the data attributes into the visualization in a way
+that made sense and was easy to follow - so we made a decision to only focus on a subset of the
+attributes that we felt showed interesting insights into the data and allowed viewers to perform
+exploratory analysis without needing too much outside context.
+    We then focused on the actual method of interaction that we wanted to utilize for our
+visualization. We knew that one of the main ways that users would use the data would be to compare
+different countries. The comparison was more noteworthy than the actual raw numbers for population,
+GDP, etc. and this is also the way the underlying data was structured: each attribute had a list
+of countries ranked and sorted by their corresponding values. So we knew that we wanted a comparison
+feature in our design. To this end, we created a table that allowed users to compare values for two
+countries. We then realized that this was too contraining - it did not allow users to see the overall
+ranking for all the countries. To solve this problem, we created sliders that filtered based on range.
+This allows users to see which countries are ranked highest and which are ranked lowest for the features
+we chose.
